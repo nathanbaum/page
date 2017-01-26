@@ -1,0 +1,189 @@
+body{
+  color: #262626;
+  text-shadow: 2px 2px 5px black;
+  background-color: #ccc;
+  background-image: url(../img/homeBackground.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-size: 150%;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+    font-family: quicksand;
+    src: url(../fonts/Quicksand/Quicksand-Regular.otf);
+}
+
+@font-face {
+    font-family: quicksand;
+    src: url(../fonts/Quicksand/Quicksand-Bold.otf);
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: bebas;
+    src: url(../fonts/BEBAS.ttf);
+}
+
+@font-face {
+    font-family: langdon;
+    src: url(../fonts/Langdon.otf);
+}
+
+/*/////////////////
+menu styles
+/////////////////*/
+#menu {
+  background-color: rgba(200, 200, 200, 0.5);
+  padding: 5px;
+}
+
+#menu ul{
+  text-align: right;
+}
+
+#menu li{
+  display: inline-block;
+  padding-right: 5%;
+}
+
+#menu a{
+  font-family: quicksand;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+#menu .page:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #4d4d4d;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+#menu .page:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+#current{
+  cursor: pointer;
+}
+
+#current:before{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #4d4d4d;
+}
+
+/*/////////////////
+text styles
+/////////////////*/
+
+div{
+
+}
+
+h1{
+  color: #cc6699;
+  font-family: monospace;
+  font-size: 300%;
+  display: inline-block;
+  padding-top: 10%;
+}
+
+h1:nth-of-type(1){
+  opacity: 0;
+
+  -webkit-animation:slide-fadein 1;  /* call our keyframe named fadeIn, and repeat it only 1 time */
+  -moz-animation:slide-fadein 1;
+  animation:slide-fadein 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:.7s;
+  -moz-animation-duration:.7s;
+  animation-duration:.7s;
+
+  -webkit-animation-delay: .6s;
+  -moz-animation-delay: .6s;
+  animation-delay: .6s;
+}
+
+p{
+  font-family: quicksand;
+  font-size: 200%;
+  /*font-weight: bold;*/
+  /*color: #8c8c8c;*/
+  color: white;
+  text-align: center;
+  padding-top: 10%;
+
+  opacity: 0;
+
+  -webkit-animation:fadein ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation:fadein ease-in 1;
+  animation:fadein ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s;
+}
+
+/*//////////////////
+keyframes
+//////////////////*/
+
+@-webkit-keyframes slide-fadein {
+  from {padding-left:2%;opacity: 0;}
+  to {padding-left:4%; opacity:1;}
+}
+
+@-moz-keyframes slide-fadein {
+  from {padding-left:2%;opacity: 0;}
+  to {padding-left:4%; opacity:1;}
+}
+
+@keyframes slide-fadein {
+  from {padding-left:2%;opacity: 0;}
+  to {padding-left:4%; opacity:1;}
+}
+
+@-webkit-keyframes fadein {
+  from {opacity: 0;}
+  to {opacity:1;}
+}
+
+@-moz-keyframes fadein {
+  from {opacity: 0;}
+  to {opacity:1;}
+}
+
+@keyframes fadein {
+  from {opacity: 0;}
+  to {opacity:1;}
+}
