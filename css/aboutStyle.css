@@ -122,10 +122,6 @@ section styles
   animation-delay: .1s;
 }
 
-#wrapper{
-  padding-left: 30%;
-  padding-right: 30%;
-}
 
 .section {
   padding-left: 3%;
@@ -144,7 +140,9 @@ section styles
   padding-bottom: 2%;
 }
 
-.section:nth-of-type(1){
+.wrapper{
+  padding-left: 30%;
+  padding-right: 30%;
   opacity: 0;
 
   -webkit-animation:slide-fadein 1;  /* call our keyframe named fadeIn, and repeat it only 1 time */
@@ -158,30 +156,18 @@ section styles
   -webkit-animation-duration:.7s;
   -moz-animation-duration:.7s;
   animation-duration:.7s;
+}
 
+.wrapper:nth-of-type(2){
   -webkit-animation-delay: .3s;
   -moz-animation-delay: .3s;
   animation-delay: .3s;
 }
 
-.section:nth-of-type(2){
-  opacity: 0;
-
-  -webkit-animation:slide-fadein 1;  /* call our keyframe named fadeIn, and repeat it only 1 time */
-  -moz-animation:slide-fadein 1;
-  animation:slide-fadein 1;
-
-  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
-  -moz-animation-fill-mode:forwards;
-  animation-fill-mode:forwards;
-
-  -webkit-animation-duration:.7s;
-  -moz-animation-duration:.7s;
-  animation-duration:.7s;
-
-  -webkit-animation-delay: .5s;
-  -moz-animation-delay: .5s;
-  animation-delay: .5s;
+.wrapper:nth-of-type(3){
+  -webkit-animation-delay: .6s;
+  -moz-animation-delay: .6s;
+  animation-delay: .6s;
 }
 
 /*//////////////////
@@ -189,18 +175,42 @@ keyframes
 //////////////////*/
 
 @-webkit-keyframes slide-fadein {
-  from {padding-left:0%;opacity: 0;}
-  to {padding-left:3%; opacity:1;}
+  from {
+    padding-left:25%;
+    padding-right: 35%;
+    opacity: 0;
+  }
+  to {
+    padding-left: 30%;
+    padding-right: 30%;
+    opacity:1;
+  }
 }
 
 @-moz-keyframes slide-fadein {
-  from {padding-left:0%;opacity: 0;}
-  to {padding-left:3%; opacity:1;}
+  from {
+    padding-left:25%;
+    padding-right: 35%;
+    opacity: 0;
+  }
+  to {
+    padding-left: 30%;
+    padding-right: 30%;
+    opacity:1;
+  }
 }
 
 @keyframes slide-fadein {
-  from {padding-left:0%;opacity: 0;}
-  to {padding-left:3%; opacity:1;}
+  from {
+    padding-left:25%;
+    padding-right: 35%;
+    opacity: 0;
+  }
+  to {
+    padding-left: 30%;
+    padding-right: 30%;
+    opacity:1;
+  }
 }
 
 @-webkit-keyframes fadein {
