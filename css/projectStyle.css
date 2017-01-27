@@ -94,8 +94,6 @@ menu styles
 section styles
 /////////////////*/
 .section{
-  width: 60%;
-  margin: auto;
   margin-top: 25px;
   background-color: rgba(200, 200, 200, 0.5);
   border-radius: 5px;
@@ -121,4 +119,75 @@ section styles
 
 .section a:hover{
   background-color: rgba(80, 80, 80, 0.80);
+}
+
+/*//////////////////
+animations
+//////////////////*/
+.wrapper{
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.wrapper:nth-of-type(2){
+  opacity: 0;
+
+  -webkit-animation:slide-fadein 1;  /* call our keyframe named fadeIn, and repeat it only 1 time */
+  -moz-animation:slide-fadein 1;
+  animation:slide-fadein 1;
+
+  -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:.7s;
+  -moz-animation-duration:.7s;
+  animation-duration:.7s;
+
+  -webkit-animation-delay: .3s;
+  -moz-animation-delay: .3s;
+  animation-delay: .3s;
+}
+
+/*//////////////////
+keyframes
+//////////////////*/
+
+@-webkit-keyframes slide-fadein {
+  from {
+    padding-left:25%;
+    padding-right: 35%;
+    opacity: 0;
+  }
+  to {
+    padding-left: 20%;
+    padding-right: 20%;
+    opacity:1;
+  }
+}
+
+@-moz-keyframes slide-fadein {
+  from {
+    padding-left:15%;
+    padding-right: 25%;
+    opacity: 0;
+  }
+  to {
+    padding-left: 20%;
+    padding-right: 20%;
+    opacity:1;
+  }
+}
+
+@keyframes slide-fadein {
+  from {
+    padding-left:15%;
+    padding-right: 25%;
+    opacity: 0;
+  }
+  to {
+    padding-left: 20%;
+    padding-right: 20%;
+    opacity:1;
+  }
 }
