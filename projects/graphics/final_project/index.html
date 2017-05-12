@@ -1,0 +1,198 @@
+<script src=M.js></script>
+<script src=lib2k.js></script>
+<script src=SHAPE.js></script>
+
+<body bgcolor=black text=white>
+<center>
+<canvas id='canvas1' width=600 height=600></canvas>
+<p>Magnitude of Y Occilation&nbsp&nbsp|&nbsp&nbspMagnitude of Z Occilation&nbsp&nbsp|&nbsp&nbspScene X Rotation&nbsp&nbsp|&nbsp&nbspScene Y Rotation</p>
+<p>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<input type="range" id="yRange" value="50" style="display:inline-block;">
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<input type="range" id="zRange" value="50" style="display:inline-block;">
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<input type="range" id="xRot" value="0" style="display:inline-block;">
+&nbsp
+<input type="range" id="yRot" value="0" style="display:inline-block;">
+</p>
+<p>
+  <input type="radio" name="flag" onclick="applyUS()" value = "US Flag"> US Flag
+  <input type="radio" name="flag" onclick="applyPride()" value = "Pride Flag"> Pride Flag
+</p>
+<p>
+<input type="button" onclick="applyInput()" value = "Apply">
+</p>
+</center>
+</body>
+
+<script>
+
+var vs_wiggle_0 = '\
+attribute vec3 aPos, aNor;\n\
+attribute vec2 aUV;\n\
+varying   vec3 vPos, vNor;\n\
+varying   vec2 vUV;\n\
+uniform   mat4 matrix, invMatrix;\n\
+uniform float uTime;\n\
+void main() {\n\
+   vec3 newPos = aPos;\n\
+   newPos.z+=('
+var vs_wiggle_1 = './50.)*sin(-newPos.x*10.+uTime*3.);\n\
+   newPos.y+=('
+var vs_wiggle_2 = './50.)*sin(-newPos.x*10.+uTime*3.)/5.;\n\
+   vec4 pos = matrix * vec4(newPos, 1.);\n\
+   vec4 nor = vec4(aNor, 0.) * invMatrix;\n\
+   gl_Position = pos;\n\
+   vPos = pos.xyz;\n\
+   vNor = nor.xyz;\n\
+   vUV  = aUV;\n\
+}\n\
+';
+
+var vs = '\
+attribute vec3 aPos, aNor;\n\
+attribute vec2 aUV;\n\
+varying   vec3 vPos, vNor;\n\
+varying   vec2 vUV;\n\
+uniform   mat4 matrix, invMatrix;\n\
+void main() {\n\
+   vec4 pos = matrix * vec4(aPos, 1.);\n\
+   vec4 nor = vec4(aNor, 0.) * invMatrix;\n\
+   gl_Position = pos;\n\
+   vPos = pos.xyz;\n\
+   vNor = nor.xyz;\n\
+   vUV  = aUV;\n\
+}\n\
+';
+
+var fs1 = '\
+varying vec3 vPos, vNor;\n\
+varying vec2 vUV;\n\
+void main() {\n\
+   vec3 normal = normalize(vNor);\n\
+   vec3 c = vec3(.1,.1,.1);\n\
+   c += vec3(.7,.7,1.) * max(0.,dot(normal, vec3( .7, .7, .7)));\n\
+   c += vec3(.5,.3,.1) * max(0.,dot(normal, vec3(-.7,-.7,-.7)));\n\
+   gl_FragColor = vec4(sqrt(c), 1.);\n\
+}\n\
+';
+
+var fs2 = '\
+varying vec3 vPos, vNor;\n\
+varying vec2 vUV;\n\
+uniform sampler2D uSampler;\n\
+uniform float uTime;\n\
+void main() {\n\
+   //vPos.z+=sin(5.*vPos.x+uTime);\n\
+   vec3 normal = normalize(vNor);\n\
+   vec3 c = vec3(.1,.1,.1);\n\
+   c += vec3(.7,.7,1.) * max(0.,dot(normal, vec3( .7, .7, .7)));\n\
+   c += vec3(.5,.3,.1) * max(0.,dot(normal, vec3(-.7,-.7,-.7)));\n\
+   vec4 texture = texture2D(uSampler, vUV);\n\
+   c *= texture.rgb;\n\
+   gl_FragColor = vec4(sqrt(c), 1.);\n\
+}\n\
+';
+
+   var obj1, obj2;
+
+   var yOcc = 50, zOcc = 50, xRot = 0, yRot = 0;
+   var flag = 'imgs/USflag.png';
+
+   var scene = new Scene();
+
+   var material1 = new Material(vs, fs1);
+
+   var material2 = new Material(vs_wiggle_0+zOcc+vs_wiggle_1+yOcc+vs_wiggle_2, fs2);
+   material2.setTexture(flag);
+
+   /*obj1 = new SceneObject();
+   obj1.setVertices(SHAPE.cylinder(10));
+   obj1.setMaterial(material1);
+   scene.addObject(obj1);*/
+
+   obj2 = new SceneObject();
+   obj2.setVertices(SHAPE.cylinder(20));
+   obj2.setMaterial(material1);
+   scene.addObject(obj2);
+
+   obj3 = new SceneObject();
+   obj3.setVertices(SHAPE.rectangleMesh(50));
+   obj3.setMaterial(material2);
+   scene.addObject(obj3);
+
+   canvas1.scene = scene;
+
+   var m = M.identityMatrix();
+
+   function applyUS(){
+     flag = 'imgs/USflag.png';
+   }
+
+   function applyPride(){
+     flag = 'imgs/pride.png';
+   }
+
+   function applyInput(){
+     yOcc = document.getElementById('yRange').value;
+     zOcc = document.getElementById('zRange').value;
+     xRot = document.getElementById('xRot').value;
+     yRot = document.getElementById('yRot').value;
+
+     scene = new Scene();
+
+     material1 = new Material(vs, fs1);
+
+     material2 = new Material(vs_wiggle_0+zOcc+vs_wiggle_1+yOcc+vs_wiggle_2, fs2);
+     material2.setTexture(flag);
+
+     /*obj1 = new SceneObject();
+     obj1.setVertices(SHAPE.cylinder(10));
+     obj1.setMaterial(material1);
+     scene.addObject(obj1);*/
+
+     obj2 = new SceneObject();
+     obj2.setVertices(SHAPE.cylinder(20));
+     obj2.setMaterial(material1);
+     scene.addObject(obj2);
+
+     obj3 = new SceneObject();
+     obj3.setVertices(SHAPE.rectangleMesh(50));
+     obj3.setMaterial(material2);
+     scene.addObject(obj3);
+
+     canvas1.scene = scene;
+   }
+
+gl_start(canvas1,
+   function(time) {
+
+      M.identity(m);
+      M.rotateY(m, (yRot/30)*time/4);
+      //M.rotateZ(m, time/4);
+      M.rotateX(m, (xRot/30)*time/4);
+      M.scale(m, 1.3);
+
+      /*M.save(m);
+         M.scale(m, .2);
+         obj1.setMatrix(m);
+      M.restore(m);*/
+
+      M.save(m);
+         M.translate(m, [-.51, (yOcc/50)*Math.sin((time-.4)*3)/10-.1, (zOcc/50)*Math.sin((time-.4)*3)/5]);
+         M.rotateX(m, Math.PI*.5);
+         M.scale(m, .02, .02, .5);
+         obj2.setMatrix(m);
+      M.restore(m);
+
+      M.save(m);
+        M.translate(m, [0, .15, 0]);
+        M.scale(m, 1, .5, .2);
+        obj3.setMatrix(m);
+      M.restore(m);
+
+   }
+);
+
+</script>
