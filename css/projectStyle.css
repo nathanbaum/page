@@ -155,6 +155,12 @@ animations
   animation-delay: .6s;
 }
 
+.wrapper:nth-of-type(4){
+  -webkit-animation-delay: .9s;
+  -moz-animation-delay: .9s;
+  animation-delay: .9s;
+}
+
 /*//////////////////
 keyframes
 //////////////////*/
