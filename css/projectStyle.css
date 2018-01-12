@@ -86,6 +86,12 @@ animations
   animation-delay: 1.2s;
 }
 
+.wrapper:nth-of-type(6){
+  -webkit-animation-delay: 1.5s;
+  -moz-animation-delay: 1.5s;
+  animation-delay: 1.5s;
+}
+
 /*//////////////////
 keyframes
 //////////////////*/
